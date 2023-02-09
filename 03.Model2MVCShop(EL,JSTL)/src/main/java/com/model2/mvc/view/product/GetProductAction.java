@@ -17,10 +17,11 @@ public class GetProductAction extends Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
-		String menu = request.getParameter("menu");
-		
 		System.out.println("GetProductAction ½ÇÇà");
+		
+		String menu = request.getParameter("menu");
+		System.out.println("menu type : "+menu);
+		
 		String productNO = request.getParameter("prodNo"); 
 		System.out.println("productNO : "+productNO);
 		ProductService productS = new ProductServiceImpl();

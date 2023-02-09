@@ -11,9 +11,9 @@ import com.model2.mvc.service.domain.Product;
 public class ProductServiceImpl implements ProductService {
 	
 	// field
-	private ProductDAO dao;
+	private ProductDAO dao;		//setter injection
 	
-	public ProductServiceImpl() {
+	public ProductServiceImpl() {		// Constrouctor Injection
 		dao = new ProductDAO();
 	}
 
