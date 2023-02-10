@@ -9,9 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-	List<Product> list = (List<Product>)request.getAttribute("list");
-	Page resultPage=(Page)request.getAttribute("resultPage");
-	
+	//List<Product> list = (List<Product>)request.getAttribute("list");
+	//Page resultPage=(Page)request.getAttribute("resultPage");
+
 	Search search = (Search)request.getAttribute("searchVO");
 	
 	
@@ -141,7 +141,7 @@ function fncGetUserList(currentPage) {
 		<tr class="ct_list_pop">
 			<td align="center">${ i }</td>
 			<td></td>
-			<td align="left"><a href="/getProduct.do?prodNo=${product.prodNo}&menu=${menu}">${product.prodName}</a></td>
+			<td align="left"><a href="/getProduct.do?menu=${menu}&prodNo=${product.prodNo}">${product.prodName}</a></td>
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>

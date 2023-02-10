@@ -22,12 +22,13 @@ public class UpdateProductViewAction extends Action {
 		
 //		HttpSession session = request.getSession(true);
 		int prodNo =Integer.parseInt((request.getParameter("prodNo")));
-		
+		String menu = request.getParameter("menu");
+		System.out.println("UpdateProduct view¿« menu : "+menu);
 		ProductService prodService = new ProductServiceImpl();
 		Product productVO = prodService.getProduct(prodNo);
 		
 		request.setAttribute("VO", productVO);
-		
+		request.setAttribute("menu", menu);
 		System.out.println("UPVA ¡æ∑·");
 		return "forward:/product/updateProduct.jsp";
 	}

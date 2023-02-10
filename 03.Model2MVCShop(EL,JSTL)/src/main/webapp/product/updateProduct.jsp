@@ -125,7 +125,7 @@ function fncAddProduct(){
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input type="text" name="price" value="${product.price }"
+			<input type="text" name="price" value="${product.price}"
 						class="ct_input_g" style="width: 100px; height: 19px" maxLength="50"/>&nbsp;¿ø
 		</td>
 	</tr>

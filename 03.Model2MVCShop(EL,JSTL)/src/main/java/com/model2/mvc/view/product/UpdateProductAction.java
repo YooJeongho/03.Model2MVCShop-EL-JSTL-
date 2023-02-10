@@ -21,7 +21,8 @@ public class UpdateProductAction extends Action {
 		System.out.println("UpdateProductAction 시작");
 		
 		int prodNo = Integer.parseInt(request.getParameter("prodNo"));
-		
+		String menu = request.getParameter("menu");
+		System.out.println("UpdateProductAction 의 menu type : "+menu);
 		Product proVO = new Product();
 		proVO.setProdNo(prodNo);
 		proVO.setProdName(request.getParameter("prodName"));
@@ -36,7 +37,7 @@ public class UpdateProductAction extends Action {
 		
 		System.out.println("update 완료");
 		
-		return "forward:/getProduct.do?prodNo="+prodNo;
+		return "forward:/getProduct.do?prodNo="+prodNo+"&menu="+menu;
 	}
 
 }

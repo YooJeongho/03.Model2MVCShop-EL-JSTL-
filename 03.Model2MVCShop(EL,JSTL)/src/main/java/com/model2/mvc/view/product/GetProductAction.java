@@ -31,13 +31,14 @@ public class GetProductAction extends Action {
 		Product productVO = productS.getProduct(Integer.parseInt(request.getParameter("prodNo")) );
 		System.out.println("GetProduct 종료");
 		System.out.println("productVO의 내용 : "+productVO);
-		System.out.println("GetProductAction 종료");
+		
 		
 		request.setAttribute("product", productVO);
 		request.setAttribute("menu", menu);
+		System.out.println("GetProductAction 종료");
 		
 		if(menu.equals("manage")) {
-			return "forward:/product/updateProduct.jsp";
+			return "forward:/updateProductView.do?prodNo="+productNO+"&menu="+menu;
 		} else {
 			return  "forward:/product/getProduct.jsp";
 		}

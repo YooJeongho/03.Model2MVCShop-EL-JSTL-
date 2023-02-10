@@ -40,6 +40,7 @@ public class AddPurchaseViewAction extends Action {
 		HttpSession session = request.getSession();
 		User userVO = (User)session.getAttribute("user");
 		System.out.println("고객정보 가져오기 종료");
+		System.out.println("--------------------------------------------");
 		
 		purchaseVO.setBuyer(userVO);
 		purchaseVO.setPurchaseProd(prodVO);
