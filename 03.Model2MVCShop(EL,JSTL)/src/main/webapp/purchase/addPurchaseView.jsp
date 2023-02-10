@@ -42,7 +42,7 @@ function fncAddPurchase() {
 		</td>
 	</tr>
 </table>
-
+<input type="hidden" name="prodNo" value="${purchase.purchaseProd.getProdNo()}" />
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -55,7 +55,7 @@ function fncAddPurchase() {
 		<td class="ct_write01" width="299">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105"><%= purchaseVO.getPurchaseProd().getProdNo() %></td>
+					<td width="105">${purchase.purchaseProd.getProdNo()}</td>
 				</tr>
 			</table>
 		</td>
@@ -68,7 +68,13 @@ function fncAddPurchase() {
 			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getPurchaseProd().getProdName() %></td>
+		<td class="ct_write01" width="299">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="105">${purchase.purchaseProd.getProdName()}</td>
+				</tr>
+			</table>
+		</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -78,7 +84,7 @@ function fncAddPurchase() {
 			상품상세정보 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getPurchaseProd().getProdDetail() %></td>
+		<td class="ct_write01">${purchase.purchaseProd.getProdDetail()}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -86,7 +92,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">제조일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getPurchaseProd().getManuDate() %></td>
+		<td class="ct_write01">${purchase.purchaseProd.getManuDate()}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -94,7 +100,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">가격</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getPurchaseProd().getPrice() %></td>
+		<td class="ct_write01">${purchase.purchaseProd.getPrice()}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -102,7 +108,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">등록일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getPurchaseProd().getRegDate()%></td>
+		<td class="ct_write01">${purchase.purchaseProd.getRegDate()}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -112,8 +118,8 @@ function fncAddPurchase() {
 			구매자아이디 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><%= purchaseVO.getBuyer().getUserId() %></td>
-		<input type="hidden" name="buyerId" value="admin" />
+		<td class="ct_write01">${purchase.buyer.getUserId()}</td>
+		<input type="hidden" name="buyerId" value="${purchase.buyer.getUserId()}" />
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -137,7 +143,7 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input type="text" name="receiverName" 	class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="20" value=<%= purchaseVO.getBuyer().getUserName() %> />
+						style="width: 100px; height: 19px" maxLength="20" value="${purchase.buyer.getUserName()}" />
 		</td>
 	</tr>
 	<tr>
@@ -159,7 +165,7 @@ function fncAddPurchase() {
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<input 	type="text" name="receiverAddr" class="ct_input_g" 
-							style="width: 100px; height: 19px" maxLength="20" 	value=<%= userVO.getAddr() %> />
+							style="width: 100px; height: 19px" maxLength="20" 	value="${purchase.buyer.getAddr()}" />
 		</td>
 	</tr>
 	<tr>

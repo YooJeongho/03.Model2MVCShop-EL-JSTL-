@@ -19,21 +19,20 @@ public class PurchaseDao {
 		Connection con = DBUtil.getConnection();
 		
 		//INSERT INTO purchase values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-		String sql = "INSERT INTO purchase values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO purchase values (seq_transaction_tran_no.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		
-		pStmt.setInt(1, purchase.getTranNo());
-		pStmt.setInt(2, purchase.getPurchaseProd().getProdNo());
-		pStmt.setString(3, purchase.getReceiverName());
-		pStmt.setString(4, purchase.getPaymentOption());
-		pStmt.setString(5, purchase.getReceiverName());
-		pStmt.setString(6, purchase.getReceiverPhone());
-		pStmt.setString(7, purchase.getDivyAddr());
-		pStmt.setString(8, purchase.getDivyRequest());
-		pStmt.setString(9, purchase.getTranCode());
-		pStmt.setDate(10, purchase.getOrderDate());
-		pStmt.setString(11, purchase.getDivyDate());
+		
+		pStmt.setInt(1, purchase.getPurchaseProd().getProdNo());
+		pStmt.setString(2, purchase.getReceiverName());
+		pStmt.setString(3, purchase.getPaymentOption());
+		pStmt.setString(4, purchase.getReceiverName());
+		pStmt.setString(5, purchase.getReceiverPhone());
+		pStmt.setString(6, purchase.getDivyAddr());
+		pStmt.setString(7, purchase.getDivyRequest());
+		pStmt.setString(8, purchase.getTranCode());
+		pStmt.setString(9, purchase.getDivyDate());
 		
 		System.out.println("PurchaseDao의 insertPurchase sql 실행 준비");
 		pStmt.executeUpdate();
