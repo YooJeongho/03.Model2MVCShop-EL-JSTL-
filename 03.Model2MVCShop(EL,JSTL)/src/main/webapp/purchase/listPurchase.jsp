@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,8 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-	function fncGetUserList() {
+	function fncGetPurchaseList(currentPage) {
+		document.getElementById("currentPage").value = currentPage;
 		document.detailForm.submit();
 	}
 </script>
@@ -16,9 +18,11 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
+<!--  <c:set var = "pageType" value="purchase" scope="request"/> -->
+
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listUser.do" method="post">
+<form name="detailForm" action="/listPurchase.do" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -35,15 +39,16 @@
 </table>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
+
 	<tr>
-		<td colspan="11">전체 1 건수, 현재 1 페이지</td>
+		<td colspan="11" >전체 ${pageresult.totalCount} 건수, 현재 ${pageresult.currentPage} 페이지</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">회원ID</td>
 		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원명</td>
+		<td class="ct_list_b" width="150">수령인</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b">전화번호</td>
 		<td class="ct_line02"></td>
@@ -54,43 +59,54 @@
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
-
 	
-	
-	<tr class="ct_list_pop">
-		<td align="center">
-			<a href="/getPurchase.do?tranNo=10147">1</a>
-		</td>
-		<td></td>
-		<td align="left">
-			<a href="/getUser.do?userId=user14">user14</a>
-		</td>
-		<td></td>
-		<td align="left">SCOTT</td>
-		<td></td>
-		<td align="left">null</td>
-		<td></td>
-		<td align="left">현재
+<c:set var = "i" value ="0"/>
+	<c:forEach var ="purchase" items="${list}">
+		<c:set var = "i" value = "${i+1}"/>
+		<tr class="ct_list_pop">
+			<td align="center">
+			<a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a>
+			</td>
+			<td></td>
+			<td align="left">
+				<a href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
+			</td>
+			<td></td>
+			<td align="left">${purchase.buyer.userName}</td>
+			<td></td>
+			<td align="left">${purchase.receiverPhone}</td>
+			<td></td>
+			<td align="left">
+				<c:if test="${!(purchase.tranCode eq '0')}">
+						현재
+					
+					${purchase.tranCode eq '1' ? '구매완료' : "${purchase.tranCode eq '2' ? '배송중' : '배송완료'}" }	
 				
-					구매완료
-				상태 입니다.</td>
-		<td></td>
-		<td align="left">
+						상태 입니다.
+				</c:if>
+			</td>
+			<td></td> 
 			
+   		<td align="left">
+		<c:if test = "${purchase.tranCode eq '2'}">
+			<a href="/updateTranCode.do?tranNo=${purchase.tranNo}&tranCode=3&page=${resultPage.currentPage}">물건도착</a>
+		</c:if>
 		</td>
 	</tr>
+	
 	<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>
-	
+
+</c:forEach>		
 </table>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td align="center">
-		 
-			<a href="/listPurchase.do?page=1">1</a> 
-		
+			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+			
+			<jsp:include page="../common/pageNavigatorPurchase.jsp"/>
 		</td>
 	</tr>
 </table>

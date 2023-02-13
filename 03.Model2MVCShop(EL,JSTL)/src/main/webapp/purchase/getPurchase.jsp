@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-
+<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -44,7 +43,43 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">
-					10108</td>
+					${purchase.purchaseProd.prodNo}</td>
+					<td></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">
+			물품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="105">
+					${purchase.purchaseProd.prodName}</td>
+					<td></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">
+			물품사진 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="105">
+					${purchase.purchaseProd.fileName}</td>
 					<td></td>
 				</tr>
 			</table>
@@ -58,7 +93,7 @@
 			구매자아이디 <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">user14</td>
+		<td class="ct_write01">${purchase.buyer.userId}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -68,7 +103,8 @@
 		<td width="104" class="ct_write">구매방법</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			현금구매
+			${purchase.paymentOption eq '1' ? '현금구매' : '신용구매' }
+			
 		</td>
 	</tr>
 	<tr>
@@ -77,7 +113,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매자이름</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">SCOTT</td>
+		<td class="ct_write01">${purchase.buyer.userName}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -85,7 +121,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매자연락처</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">null</td>
+		<td class="ct_write01">${purchase.receiverPhone}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -93,7 +129,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매자주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">null</td>
+		<td class="ct_write01">${purchase.divyAddr}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -101,7 +137,7 @@
 	<tr>
 		<td width="104" class="ct_write">구매요청사항</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">null</td>
+		<td class="ct_write01">${purchase.divyRequest}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -109,7 +145,7 @@
 	<tr>
 		<td width="104" class="ct_write">배송희망일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">null</td>
+		<td class="ct_write01">${purchase.divyDate}</td>
 	</tr>
 
 	<tr>
@@ -119,7 +155,7 @@
 	<tr>
 		<td width="104" class="ct_write">주문일</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">2023-02-10</td>
+		<td class="ct_write01">${purchase.orderDate}</td>
 	</tr>
 
 	<tr>
@@ -134,15 +170,19 @@
 		<td align="right">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
+					<c:if test="${!(purchase.tranCode eq '2' || purchase.tranCode eq '3') }">
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
+					
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-						<a href="/updatePurchaseView.do?tranNo=10147">수정</a>
+						<a href="/updatePurchaseView.do?tranNo=${purchase.tranNo}">수정</a>
 					</td>
+					
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
+					</c:if>					
 					<td width="30"></td>
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
