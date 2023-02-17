@@ -24,12 +24,25 @@ public class PurchaseDao {
 	public PurchaseDao() {
 	}
 	
+	public void updateTranCode(Purchase purchase) {
+		System.out.println("Purchase updateTranCode() 실행");
+		
+		Connection con = DBUtil.getConnection();
+		
+		String sql = "UPDATE transaction SET TRAN_STATUS_CODE = ? WHERE tran_no = ?";
+		
+		
+		System.out.println("Purchase updateTranCode() 종료");
+		
+		
+	}
+	
 	public void updatePurchase(Purchase purchase) throws Exception{
 		System.out.println("PurchaseDAO의 updatePurchase() 실행");
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "UPDATE transaction SET (PAYMENT_OPTION, RECEIVER_NAME, RECEIVER_PHONE, DEMAILADDR, DLVY_REQUEST, DLVY_DATE) = ('?', '?', '?', '?', '?', '?',) WHERE tranNo = ?";
+		String sql = "UPDATE transaction SET payment_option = ?, receiver_name = ?, receiver_phone = ?, demailaddr = ?, dlvy_request = ?, dlvy_date = ?  WHERE tran_No = ?";
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		System.out.println("sql 준비완료");
@@ -62,7 +75,7 @@ public class PurchaseDao {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT * FROM transaction  WHERE tran_no = "+tranNo;
+		String sql = "SELECT * FROM transaction WHERE tran_no = "+tranNo;
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		
 		ResultSet rs = pStmt.executeQuery();
@@ -103,7 +116,7 @@ public class PurchaseDao {
 		Connection con = DBUtil.getConnection();
 		
 		//INSERT INTO purchase values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-		String sql = "INSERT INTO transaction values (seq_transaction_tran_no.nextval, ?, ?, ?, ?, ?, ?, ?, 1, sysdate, ?)";
+		String sql = "INSERT INTO transaction values (seq_transaction_tran_no.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		
@@ -115,7 +128,8 @@ public class PurchaseDao {
 		pStmt.setString(5, purchase.getReceiverPhone());
 		pStmt.setString(6, purchase.getDivyAddr());
 		pStmt.setString(7, purchase.getDivyRequest());
-		pStmt.setString(8, purchase.getDivyDate());
+		pStmt.setString(8, purchase.getTranCode());
+		pStmt.setString(9, purchase.getDivyDate());
 		
 		System.out.println("PurchaseDao의 insertPurchase sql 실행 준비");
 		pStmt.executeUpdate();

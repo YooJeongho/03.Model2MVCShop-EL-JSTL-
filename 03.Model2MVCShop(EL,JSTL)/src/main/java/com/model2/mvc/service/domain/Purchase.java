@@ -4,7 +4,7 @@ import java.sql.Date;
 
 
 
-
+// mybatis => (has-a => Advance result map)
 
 public class Purchase {
 	

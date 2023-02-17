@@ -8,17 +8,19 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<!--  
 <script type="text/javascript">
 	function fncGetPurchaseList(currentPage) {
 		document.getElementById("currentPage").value = currentPage;
 		document.detailForm.submit();
 	}
 </script>
+-->
+
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<!--  <c:set var = "pageType" value="purchase" scope="request"/> -->
 
 <div style="width: 98%; margin-left: 10px;">
 
@@ -105,7 +107,6 @@
 	<tr>
 		<td align="center">
 			<input type="hidden" id="currentPage" name="currentPage" value=""/>
-			
 			<jsp:include page="../common/pageNavigatorPurchase.jsp"/>
 		</td>
 	</tr>

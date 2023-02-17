@@ -35,7 +35,7 @@ public class ProductDAO {
 		pStmt.setString(2, productVO.getProdDetail());
 		pStmt.setString(3, date);	
 		pStmt.setInt(4, productVO.getPrice());
-		pStmt.setString(5, productVO.getProTranCode());
+		pStmt.setString(5, productVO.getFileName());
 		pStmt.executeUpdate();
 		
 		con.close();
@@ -47,7 +47,9 @@ public class ProductDAO {
 	public Product findProduct (int productNO) throws Exception {
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT * FROM product WHERE PROD_NO=?";
+		String sql = "SELECT prod.*, NVL(tran.tran_status_code, 0) AS tran_status_code, NVL(tran.tran_no,0) AS tran_no"
+				+ " FROM product prod, transaction tran"
+				+ " WHERE prod.prod_no = tran.prod_no(+) AND prod.prod_no = ?";
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		pStmt.setInt(1, productNO);
@@ -64,6 +66,7 @@ public class ProductDAO {
 			productVO.setManuDate(rs.getString("MANUFACTURE_DAY"));
 			productVO.setPrice(rs.getInt("PRICE"));
 			productVO.setRegDate(rs.getDate("REG_DATE"));
+			productVO.setProTranCode(rs.getString("tran_status_code"));
 		}
 		
 		con.close();
@@ -122,6 +125,7 @@ public class ProductDAO {
 			product.setProdName(rs.getString("prod_name"));
 			product.setPrice(rs.getInt("price"));
 			product.setRegDate(rs.getDate("reg_date"));
+			product.setProTranCode(rs.getString("tran_code").trim());
 			list.add(product);
 		}
 		System.out.println("list에 정보가 잘 들어있는지"+list);
@@ -168,13 +172,14 @@ public class ProductDAO {
 	
 	// 게시판 currentPage Row 만  return 
 		private String makeCurrentPageSql(String sql , Search search){
-			sql = 	"SELECT * "+ 
-						"FROM (		SELECT inner_table. * ,  ROWNUM AS row_seq " +	// view table을 두번 사용해서 rownum 두번 호출 => 최종적으로 rownum 순으로 출력 가능
+			sql = 	"SELECT otb.*, NVL(tran.tran_no,0) AS tran_no, NVL(tran.tran_status_code,0) AS tran_code"+ 
+						" FROM (		SELECT inner_table. * ,  ROWNUM AS row_seq " +	// view table을 두번 사용해서 rownum 두번 호출 => 최종적으로 rownum 순으로 출력 가능
 										" 	FROM (	"+sql+" ) inner_table "+
-										"	WHERE ROWNUM <="+search.getCurrentPage()*search.getPageSize()+" ) " +
-						"WHERE row_seq BETWEEN "+((search.getCurrentPage()-1)*search.getPageSize()+1) +" AND "+search.getCurrentPage()*search.getPageSize(); // 내부 테이블에서 allign을 이용해서 rownum을 colum으로 만들어서 추출가능
+										"	WHERE ROWNUM <="+search.getCurrentPage()*search.getPageSize()+" ) otb, transaction tran" +
+						" WHERE otb.prod_no = tran.prod_no(+)"
+						+ " AND row_seq BETWEEN "+((search.getCurrentPage()-1)*search.getPageSize()+1) +" AND "+search.getCurrentPage()*search.getPageSize(); // 내부 테이블에서 allign을 이용해서 rownum을 colum으로 만들어서 추출가능
 			
-			System.out.println("UserDAO :: make SQL :: "+ sql);	
+			System.out.println("DAO :: make SQL :: "+ sql);	
 			
 			return sql;
 		}

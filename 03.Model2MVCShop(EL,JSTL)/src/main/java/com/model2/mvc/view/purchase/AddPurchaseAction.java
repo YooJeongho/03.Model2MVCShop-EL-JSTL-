@@ -44,6 +44,9 @@ public class AddPurchaseAction extends Action {
 		purchase.setDivyDate(request.getParameter("receiverDate"));
 		System.out.println(purchase.toString());
 		
+		//구매 시 tran_code를 1로 저장 (구매완료) => 2 : 배송 중 / 3 : 배송완료
+		purchase.setTranCode("1");
+		System.out.println(purchase.toString());
 		
 		PurchaseService purchaseService = new PurchaseServiceImpl();
 		System.out.println("PurchaseServiceImpl로 전송");

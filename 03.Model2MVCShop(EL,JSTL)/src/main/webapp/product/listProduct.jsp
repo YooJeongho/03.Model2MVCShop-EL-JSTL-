@@ -128,6 +128,8 @@ function fncGetUserList(currentPage) {
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">가격</td>
 		<td class="ct_line02"></td>
+		<td class="ct_list_b">등록날짜</td>
+		<td class="ct_line02"></td>
 		<td class="ct_list_b">현재상태</td>		
 	</tr>
 	<tr>
@@ -145,8 +147,31 @@ function fncGetUserList(currentPage) {
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
-			<td align="left">${product.regDate}
-			</td>		
+			<td align="left">${product.regDate}</td>
+			<td></td>
+			<td align="left">
+				<c:if test="${sessionScope.user.role eq 'admin'}">
+					<c:if test="${product.proTranCode eq '0'}">판매중</c:if>
+					<c:if test="${product.proTranCode eq '1'}">
+						구매완료 
+						<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a>
+					</c:if>
+					
+					<c:if test="${product.proTranCode eq '2'}">배송 중</c:if>
+					<c:if test="${product.proTranCode eq '3'}">배송 완료</c:if>
+				</c:if>
+				
+				<c:if test="${sessionScope.user.role eq 'user'}">
+					<c:if test="${product.proTranCode eq '0'}">판매중</c:if>
+					
+					<c:if test="${product.proTranCode eq '1'}">품절</c:if>
+						 
+					<c:if test="${product.proTranCode eq '2'}">품절</c:if>
+					<c:if test="${product.proTranCode eq '3'}">품절</c:if>
+				</c:if>
+					
+					
+			</td>
 		</tr>
 		<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
