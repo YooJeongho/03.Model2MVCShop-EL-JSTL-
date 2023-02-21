@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
@@ -24,12 +25,41 @@ public class PurchaseDao {
 	public PurchaseDao() {
 	}
 	
-	public void updateTranCode(Purchase purchase) {
+	public void updateTranCodeByProd(Product product) throws Exception{
+		System.out.println("PurchaseDao updateTranCodeByProd() 실행");
+		
+		Connection con = DBUtil.getConnection();
+		String sql = "UPDATE transaction SET TRAN_STATUS_CODE = ? WHERE prod_no = ?";
+		
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		pStmt.setString(1, product.getProTranCode());
+		pStmt.setInt(2, product.getProdNo());
+		
+		pStmt.execute();
+		
+		pStmt.close();
+		con.close();
+		
+		System.out.println("PurchaseDao updateTranCodeByProd() 실행");
+	}
+	
+	public void updateTranCode(Purchase purchase) throws Exception {
 		System.out.println("Purchase updateTranCode() 실행");
+		
+		System.out.println("purchase에 저장된 Trancode : "+purchase.getTranCode());
 		
 		Connection con = DBUtil.getConnection();
 		
 		String sql = "UPDATE transaction SET TRAN_STATUS_CODE = ? WHERE tran_no = ?";
+		
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		pStmt.setString(1, purchase.getTranCode());
+		pStmt.setInt(2, purchase.getPurchaseProd().getProdNo());
+		
+		pStmt.execute();
+		
+		pStmt.close();
+		con.close();
 		
 		
 		System.out.println("Purchase updateTranCode() 종료");
@@ -97,6 +127,7 @@ public class PurchaseDao {
 			purchase.setDivyRequest(rs.getString("DLVY_REQUEST"));
 			purchase.setDivyDate(rs.getString("DLVY_DATE"));
 			purchase.setOrderDate(rs.getDate("ORDER_DATA"));
+			purchase.setTranCode(rs.getString("TRAN_STATUS_CODE"));
 			
 		}
 		System.out.println("Select된 data들 purchase에 저장 완료 : "+purchase.toString());

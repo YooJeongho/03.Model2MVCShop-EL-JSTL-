@@ -30,14 +30,15 @@ public class ListProductAction extends Action {
 		
 		String menu = request.getParameter("menu");
 		System.out.println("ListProductAction menu type : "+menu);
-		
-		
+		System.out.println("ListProductAction menu type : "+request.getParameter("currentPage"));
 		
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			System.out.println("currentPage : "+currentPage);
 		}
+		
+		System.out.println("currentPage는 잘 setting 되었는지 : "+currentPage);
 		
 		searchVO.setCurrentPage(currentPage);
 		searchVO.setSearchCondition(request.getParameter("searchCondition"));

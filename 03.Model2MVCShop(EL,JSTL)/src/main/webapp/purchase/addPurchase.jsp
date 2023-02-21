@@ -23,7 +23,7 @@
 <table border=1>
 	<tr>
 		<td>물품번호</td>
-		<td>${purchase.purchaseProd.prodNo}1</td>
+		<td>${purchase.purchaseProd.prodNo}</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -34,7 +34,7 @@
 	<tr>
 		<td>구매방법</td>
 		<td>
-			${requestScope.purchase.paymentOption == '1' ? '현금구매' : '신용구매'}
+			${requestScope.purchase.paymentOption eq '1' ? '현금구매' : '신용구매'}
 		</td>
 		<td></td>
 	</tr>

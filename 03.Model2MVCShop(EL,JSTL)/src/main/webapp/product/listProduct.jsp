@@ -154,7 +154,8 @@ function fncGetUserList(currentPage) {
 					<c:if test="${product.proTranCode eq '0'}">판매중</c:if>
 					<c:if test="${product.proTranCode eq '1'}">
 						구매완료 
-						<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a>
+						<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=2">배송하기</a>
+						<input type="hidden">
 					</c:if>
 					
 					<c:if test="${product.proTranCode eq '2'}">배송 중</c:if>

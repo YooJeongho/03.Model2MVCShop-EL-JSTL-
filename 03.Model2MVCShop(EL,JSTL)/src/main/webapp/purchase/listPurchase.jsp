@@ -82,7 +82,7 @@
 				<c:if test="${!(purchase.tranCode eq '0')}">
 						현재
 					
-					${purchase.tranCode eq '1' ? '구매완료' : "${purchase.tranCode eq '2' ? '배송중' : '배송완료'}" }	
+					${purchase.tranCode eq '1' ? '구매완료' : "${purchase.tranCode eq '2' ? '배송중' : '수령완료'}" }	
 				
 						상태 입니다.
 				</c:if>
@@ -90,8 +90,13 @@
 			<td></td> 
 			
    		<td align="left">
+   		
 		<c:if test = "${purchase.tranCode eq '2'}">
-			<a href="/updateTranCode.do?tranNo=${purchase.tranNo}&tranCode=3&page=${resultPage.currentPage}">물건도착</a>
+			<a href="/updateTranCode.do?tranNo=${purchase.tranNo}&tranCode=3&page=${pageresult.currentPage}">물건도착</a>
+		</c:if>
+		
+		<c:if test = "${purchase.tranCode eq '1' }">
+			배송 전
 		</c:if>
 		</td>
 	</tr>

@@ -13,6 +13,7 @@ import java.util.Map;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
 
 public class ProductDAO {
@@ -127,6 +128,11 @@ public class ProductDAO {
 			product.setRegDate(rs.getDate("reg_date"));
 			product.setProTranCode(rs.getString("tran_code").trim());
 			list.add(product);
+			
+			if(rs.getInt("tran_no") != 0) {
+				Purchase purchase = new Purchase();
+				purchase.setTranNo(rs.getInt("tran_no"));
+			} 
 		}
 		System.out.println("list에 정보가 잘 들어있는지"+list);
 		//==> totalCount 정보를 map에 key=value형태로 저장
