@@ -48,7 +48,7 @@ public class UpdateTranCodeByProdAction extends Action {
 		purchase.setTranCode(tranCode);
 		
 		System.out.println("updateTranCode Àü");
-		purchaseService.updateTranCode(purchase);
+		purchaseService.updateTranCodeByProd(purchase);
 		System.out.println("updateTranCode ÈÄ");
 		
 		System.out.println("UpdateTranCodeByProdAction end.....");

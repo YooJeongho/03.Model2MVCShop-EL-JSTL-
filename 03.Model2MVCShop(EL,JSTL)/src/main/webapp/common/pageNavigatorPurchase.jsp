@@ -6,7 +6,7 @@
 			◀ 이전
 	</c:if>
 	<c:if test="${ pageresult.currentPage > pageresult.pageUnit }">
-			<a href="javascript:fncGetPurchaseList('${ resultPage.currentPage-1}')">◀ 이전</a>
+			<a href="javascript:fncGetPurchaseList('${ pageresult.currentPage-1}')">◀ 이전</a>
 	</c:if>
 	
 	<c:forEach var="i"  begin="${pageresult.beginUnitPage}" end="${pageresult.endUnitPage}" step="1">

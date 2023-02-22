@@ -25,15 +25,15 @@ public class PurchaseDao {
 	public PurchaseDao() {
 	}
 	
-	public void updateTranCodeByProd(Product product) throws Exception{
+	public void updateTranCodeByProd(Purchase purchase) throws Exception{
 		System.out.println("PurchaseDao updateTranCodeByProd() ½ÇÇà");
 		
 		Connection con = DBUtil.getConnection();
 		String sql = "UPDATE transaction SET TRAN_STATUS_CODE = ? WHERE prod_no = ?";
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
-		pStmt.setString(1, product.getProTranCode());
-		pStmt.setInt(2, product.getProdNo());
+		pStmt.setString(1, purchase.getTranCode());
+		pStmt.setInt(2, purchase.getPurchaseProd().getProdNo());
 		
 		pStmt.execute();
 		
@@ -54,7 +54,7 @@ public class PurchaseDao {
 		
 		PreparedStatement pStmt = con.prepareStatement(sql);
 		pStmt.setString(1, purchase.getTranCode());
-		pStmt.setInt(2, purchase.getPurchaseProd().getProdNo());
+		pStmt.setInt(2, purchase.getTranNo());
 		
 		pStmt.execute();
 		

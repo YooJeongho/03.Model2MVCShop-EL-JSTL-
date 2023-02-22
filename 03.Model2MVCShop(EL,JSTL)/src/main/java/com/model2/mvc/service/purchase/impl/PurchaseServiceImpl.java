@@ -1,9 +1,11 @@
 package com.model2.mvc.service.purchase.impl;
 
+import java.awt.dnd.DragSourceAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.product.dao.ProductDAO;
 import com.model2.mvc.service.purchase.PurchaseService;
@@ -52,7 +54,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	public void updateTranCode(Purchase purchase) throws Exception {
-		// TODO Auto-generated method stub
+		dao.updateTranCode(purchase);
+		
+	}
+
+	@Override
+	public void updateTranCodeByProd(Purchase purchase) throws Exception {
+		dao.updateTranCodeByProd(purchase);
 		
 	}
 

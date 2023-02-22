@@ -12,13 +12,13 @@
 	//List<Product> list = (List<Product>)request.getAttribute("list");
 	//Page resultPage=(Page)request.getAttribute("resultPage");
 
-	Search search = (Search)request.getAttribute("searchVO");
+	//Search search = (Search)request.getAttribute("searchVO");
 	
 	
 	
 	//null 을 null String으로 변환해주는 작업
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
+	//String searchCondition = CommonUtil.null2str(search.getSearchCondition());
+	//String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
 	
 %>
 
@@ -106,7 +106,7 @@ function fncGetUserList(currentPage) {
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetUserList('${searchVO.currentPage }')">검색</a>
+						<a href="javascript:fncGetUserList('${resultPage.currentPage }')">검색</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -151,15 +151,20 @@ function fncGetUserList(currentPage) {
 			<td></td>
 			<td align="left">
 				<c:if test="${sessionScope.user.role eq 'admin'}">
+					<c:if test="${menu eq 'manage' }">
 					<c:if test="${product.proTranCode eq '0'}">판매중</c:if>
 					<c:if test="${product.proTranCode eq '1'}">
 						구매완료 
-						<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=2">배송하기</a>
-						<input type="hidden">
+						<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=2&currentPage=${resultPage.currentPage}">배송하기</a>
 					</c:if>
-					
 					<c:if test="${product.proTranCode eq '2'}">배송 중</c:if>
 					<c:if test="${product.proTranCode eq '3'}">배송 완료</c:if>
+					</c:if>
+					
+					<c:if test="${product.proTranCode eq '0'}">판매중</c:if>
+					<c:if test="${product.proTranCode eq '1'}">품절</c:if>
+					<c:if test="${product.proTranCode eq '2'}">품절</c:if>
+					<c:if test="${product.proTranCode eq '3'}">품절</c:if>
 				</c:if>
 				
 				<c:if test="${sessionScope.user.role eq 'user'}">
@@ -170,8 +175,6 @@ function fncGetUserList(currentPage) {
 					<c:if test="${product.proTranCode eq '2'}">품절</c:if>
 					<c:if test="${product.proTranCode eq '3'}">품절</c:if>
 				</c:if>
-					
-					
 			</td>
 		</tr>
 		<tr>

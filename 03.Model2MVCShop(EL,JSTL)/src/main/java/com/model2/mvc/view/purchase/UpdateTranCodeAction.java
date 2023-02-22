@@ -28,8 +28,8 @@ public class UpdateTranCodeAction extends Action {
 		
 		purchase.setTranCode(tranCode);
 		purchase.setTranNo(tranNo);
-		
 		purchaseS.updateTranCode(purchase);
+		
 		return "forward:/listPurchase.do?&currentPage="+currentPage;
 	}
 

@@ -8,14 +8,16 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<!--  
+
 <script type="text/javascript">
+<!--  
 	function fncGetPurchaseList(currentPage) {
 		document.getElementById("currentPage").value = currentPage;
 		document.detailForm.submit();
 	}
-</script>
 -->
+</script>
+
 
 </head>
 
@@ -80,11 +82,17 @@
 			<td></td>
 			<td align="left">
 				<c:if test="${!(purchase.tranCode eq '0')}">
-						현재
+					<c:if test="${purchase.tranCode eq '1' }">
+						구매완료
+					</c:if>
 					
-					${purchase.tranCode eq '1' ? '구매완료' : "${purchase.tranCode eq '2' ? '배송중' : '수령완료'}" }	
-				
-						상태 입니다.
+					<c:if test="${purchase.tranCode eq '2' }">
+						배송 중
+					</c:if>
+					
+					<c:if test="${purchase.tranCode eq '3' }">
+						배송 완료
+					</c:if>
 				</c:if>
 			</td>
 			<td></td> 
@@ -111,7 +119,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td align="center">
-			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+			<input type="hidden" id="currentPage" name="currentPage" value="${pageresult.currentPage}"/>
 			<jsp:include page="../common/pageNavigatorPurchase.jsp"/>
 		</td>
 	</tr>
